@@ -17,12 +17,12 @@ services:
         env_file:
            - .env
     
-    mariadb:
-        container_name: ca-l-mariadb
-        image: mariadb:11.0-rc
+    mysql:
+        container_name: ca-l-mysql
+        image: mysql:8
         env_file:
            - .env
         volumes:
-            - ./docker/mysql/data/mariadb:/var/lib/mysql
+            - ./docker/mysql/data/mysql:/var/lib/mysql
         ports:
             - 3306:3306

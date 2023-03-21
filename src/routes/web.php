@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GreetingController;
+use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\PhotosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,30 +20,10 @@ Route::get('/', function () {
     return 'Hello World';
 });
 
-Route::get('/{name}/', function (string $name) {
-    return $name;
-});
+Route::get('/{name}/', [GreetingController::class, 'greet']);
 
-Route::get('/{type}/{first}/{second}', function (string $type,string $first, string $second) {
-    if ($type == "sum") {
-        $sum = intval($first) + intval($second);
-        return $sum;
-    }
-    elseif ($type == "subtract") {
-        $sum = intval($first) - intval($second);
-        return $sum;
-    }
-    elseif ($type == "multiply") {
-        $sum = intval($first) * intval($second);
-        return $sum;
-    }
-    elseif ($type == "divide") {
-        $sum = intval($first) / intval($second);
-        return $sum;
-    }
-    else {
-        return "Please provide argument";
-    }
+Route::get('/{type}/{first}/{second}', [CalculatorController::class, 'calculate']
+)->where(['type' => '[a-z]+', 'first' => '[0-9]+', 'second' => '[0-9]+']);
 
-})->where(['type' => '[a-z]+', 'first' => '[0-9]+', 'second' => '[0-9]+']);
+Route::resource('photos', 'PhotosController');
 
